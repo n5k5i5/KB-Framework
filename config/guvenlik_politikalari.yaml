@@ -1,0 +1,21 @@
+politikalar:
+  yuksek_guvenlik:
+    imza_gereksinimi: true
+    kod_inceleme: true
+    ag_erisimi: sinirli
+    dosya_yazma: yasak
+    sistem_cagrilari: yasak
+
+  orta_guvenlik:
+    imza_gereksinimi: true
+    kod_inceleme: false
+    ag_erisimi: izinli
+    dosya_yazma: sinirli
+    sistem_cagrilari: yasak
+
+  dusuk_guvenlik:
+    imza_gereksinimi: false
+    kod_inceleme: false
+    ag_erisimi: serbest
+    dosya_yazma: izinli
+    sistem_cagrilari: izinli
