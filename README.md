@@ -8,13 +8,17 @@ python kb-osint/kb.py
 ```
 Use the interactive shell to list modules and run commands.
 
-## International (regional) modules
+## International / National (regional) modules
 - Country-specific modules live under: `kb-osint/modüller/regional/<country_code>/`
-- Enable specific countries via `kb-osint/config/ana_config.yaml`:
+- Configure via `kb-osint/config/ana_config.yaml`:
   ```yaml
   regional:
-    enabled_countries: ["tr"]  # example: Turkey
+    mode: international        # international | national
+    country_code: ""           # e.g., "tr"
+    enabled_countries: []      # e.g., ["tr", "us"]
   ```
+  - International mode: allow multiple country-specific modules via `enabled_countries`.
+  - National mode: set `country_code` to load only that country's modules.
 
 ## Directory Summary
 - çekirdek/: core system (loader, security, config)

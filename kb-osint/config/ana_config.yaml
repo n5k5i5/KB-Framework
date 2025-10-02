@@ -17,4 +17,6 @@ guvenlik:
   veri_sifreleme: true
 
 regional:
-  enabled_countries: []  # örn: ["tr", "us"]
+  mode: international        # international | national
+  country_code: ""           # örn: "tr"
+  enabled_countries: []      # örn: ["tr", "us"]

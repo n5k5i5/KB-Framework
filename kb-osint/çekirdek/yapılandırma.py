@@ -20,3 +20,11 @@ class Yapilandirma:
 
     def al(self, anahtar, varsayilan=None):
         return self.veri.get(anahtar, varsayilan)
+
+    def kaydet(self):
+        """Geçerli konfigürasyonu YAML dosyasına yazar."""
+        klasor = os.path.dirname(self.yol)
+        if klasor and not os.path.exists(klasor):
+            os.makedirs(klasor, exist_ok=True)
+        with open(self.yol, "w", encoding="utf-8") as f:
+            yaml.safe_dump(self.veri or {}, f, allow_unicode=True, sort_keys=False)

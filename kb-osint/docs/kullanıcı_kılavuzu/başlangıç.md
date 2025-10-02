@@ -12,15 +12,18 @@ KB-OSINT'i başlatmak ve temel komutları çalıştırmak için bu kılavuzu izl
 
 2. İsteğe bağlı API anahtarlarını `kb-osint/config/api_anahtarları.yaml` içine girin.
 
-3. Uluslararası kullanım (opsiyonel):
+3. Uluslararası / Ulusal (opsiyonel):
    - `kb-osint/config/ana_config.yaml` içinde dil ve bölgesel modülleri ayarlayın:
      ```yaml
      sistem:
        dil: "en"  # veya "tr"
      regional:
-       enabled_countries: []  # örn: ["tr", "us"]
+       mode: international        # international | national
+       country_code: ""           # örn: "tr"
+       enabled_countries: []      # örn: ["tr", "us"]
      ```
-   - Varsayılan olarak ülkeye özel modüller yüklenmez. TR modüllerini yüklemek için `enabled_countries` listesine `tr` ekleyin.
+   - Uluslararası modda: `enabled_countries` ile birden fazla ülke modülünü açabilirsiniz.
+   - Ulusal modda: `country_code` tek bir ülke seçer (ör. `tr`) ve sadece o ülkeye özel modüller yüklenir.
 
 ## Başlatma
 

@@ -13,15 +13,18 @@ Follow this guide to install and start KB-OSINT.
 2. Optional API keys:
    - Put your keys in `kb-osint/config/api_anahtarları.yaml`.
 
-3. International setup (optional):
+3. International / National setup (optional):
    - Configure language and regional modules in `kb-osint/config/ana_config.yaml`:
      ```yaml
      sistem:
        dil: "en"  # or "tr"
      regional:
-       enabled_countries: []  # e.g., ["tr", "us"]
+       mode: international        # international | national
+       country_code: ""           # e.g., "tr"
+       enabled_countries: []      # e.g., ["tr", "us"]
      ```
-   - By default, no country-specific modules are loaded. Add `"tr"` to enable Turkey-specific modules.
+   - International mode: use `enabled_countries` to allow multiple country-specific modules.
+   - National mode: set `country_code` (e.g., `tr`) to load only that country's modules.
 
 ## Run the interactive shell
 

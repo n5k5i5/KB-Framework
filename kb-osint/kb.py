@@ -6,6 +6,7 @@ from arayüz.interaktif_kabuk import InteraktifKabuk
 from çekirdek.yükleyici import Yukleyici
 from çekirdek.yapılandırma import Yapilandirma
 from arayüz.modul_komutlari import ModulKomutlari
+from arayüz.country_komutlari import UlkeKomutlari
 
 
 def _modul_dizinleri(proje_kok: str, enabled_countries=None):
@@ -39,8 +40,8 @@ def _modul_dizinleri(proje_kok: str, enabled_countries=None):
     ]
 
     # Bölgesel (ülke) modüllerini opsiyonel olarak ekle
-    if "tr" in enabled_countries:
-        dizinler.append(os.path.join(base, "regional", "tr"))
+    for code in enabled_countries:
+        dizinler.append(os.path.join(base, "regional", code))
 
     return dizinler
 
@@ -52,13 +53,18 @@ def main():
     cfg = Yapilandirma()
     cfg.yukle()
     regional = cfg.al("regional", {}) or {}
+    mode = regional.get("mode", "international")
+    country_code = regional.get("country_code") or ""
     enabled_countries = regional.get("enabled_countries", [])
+    if mode == "national" and country_code:
+        enabled_countries = [country_code]
 
     yukleyici = Yukleyici(allowed_regions=enabled_countries)
     yukleyici.tara(_modul_dizinleri(proje_kok, enabled_countries))
 
     kabuk = InteraktifKabuk()
     mk = ModulKomutlari(yukleyici)
+    uk = UlkeKomutlari(yukleyici, cfg, proje_kok)
 
     # Komutlar (TR ve EN takma adlar)
     kabuk.komut_ekle("modul_liste", mk.modul_liste, "Modülleri listeler - modul_liste [detayli|kategori|ara|aktif|pasif]")
@@ -67,6 +73,18 @@ def main():
     kabuk.komut_ekle("module_categories", lambda *_: mk._kategorileri_listele(), "List all module categories")
     kabuk.komut_ekle("modul_ara", lambda args: mk._ara(args[0] if args else ""), "Modüllerde arama yapar - modul_ara <metin>")
     kabuk.komut_ekle("module_search", lambda args: mk._ara(args[0] if args else ""), "Search modules - module_search <text>")
+
+    # Ülke (regional) komutları
+    kabuk.komut_ekle("ulke_liste", uk.ulke_liste, "Etkin ülkeleri listeler / List enabled countries")
+    kabuk.komut_ekle("country_list", uk.country_list, "List enabled countries")
+    kabuk.komut_ekle("ulke_etkinlestir", uk.ulke_etkinlestir, "Ülke etkinleştir / Enable country: ulke_etkinlestir <kod>")
+    kabuk.komut_ekle("country_enable", uk.country_enable, "Enable country: country_enable <code>")
+    kabuk.komut_ekle("ulke_devre_disi", uk.ulke_devre_disi, "Ülke devre dışı / Disable country: ulke_devre_disi <kod>")
+    kabuk.komut_ekle("country_disable", uk.country_disable, "Disable country: country_disable <code>")
+    kabuk.komut_ekle("ulke_ayarla", uk.ulke_ayarla, "Tek ülke modu / National: ulke_ayarla <kod>")
+    kabuk.komut_ekle("country_set", uk.country_set, "National mode: country_set <code>")
+    kabuk.komut_ekle("modulleri_yeniden_yukle", uk.modulleri_yeniden_yukle, "Modülleri yeniden yükle / Reload modules")
+    kabuk.komut_ekle("reload_modules", uk.reload_modules, "Reload modules")
 
     # Yerleşik komutlar (TR ve EN)
     kabuk.komut_ekle("yardim", lambda *_: kabuk.yardim(), "Yardım metnini gösterir")
