@@ -5,6 +5,7 @@ MANIFEST = {
     "yazar": "Topluluk",
     "aciklama": ".tr domain bilgileri.",
     "kategori": "turkiye",
+    "regional": "tr",
     "api_gereksinimleri": ["whois_api", "dns_api"],
     "bagimliliklar": [],
     "izinler": ["http", "dns"],

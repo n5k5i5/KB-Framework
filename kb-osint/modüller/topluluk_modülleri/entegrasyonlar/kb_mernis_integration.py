@@ -5,6 +5,7 @@ MANIFEST = {
     "yazar": "Topluluk",
     "aciklama": "MERNİS entegrasyonu.",
     "kategori": "api",
+    "regional": "tr",
     "api_gereksinimleri": ["mernis_api"],
     "bagimliliklar": [],
     "izinler": ["http", "net_outbound"],

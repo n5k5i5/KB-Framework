@@ -5,6 +5,7 @@ MANIFEST = {
     "yazar": "Topluluk",
     "aciklama": "Türkiye şirket arama.",
     "kategori": "turkiye",
+    "regional": "tr",
     "api_gereksinimleri": ["tr_business_api"],
     "bagimliliklar": [],
     "izinler": ["http"],

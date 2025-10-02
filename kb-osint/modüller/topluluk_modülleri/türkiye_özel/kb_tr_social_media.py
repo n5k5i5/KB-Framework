@@ -5,6 +5,7 @@ MANIFEST = {
     "yazar": "Topluluk",
     "aciklama": "Türkiye odaklı sosyal medya OSINT.",
     "kategori": "turkiye",
+    "regional": "tr",
     "api_gereksinimleri": ["platform_api"],
     "bagimliliklar": [],
     "izinler": ["http"],

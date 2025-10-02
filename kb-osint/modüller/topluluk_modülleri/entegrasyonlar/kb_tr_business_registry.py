@@ -5,6 +5,7 @@ MANIFEST = {
     "yazar": "Topluluk",
     "aciklama": "Türkiye ticari sicil entegrasyonu.",
     "kategori": "api",
+    "regional": "tr",
     "api_gereksinimleri": ["tr_business_api"],
     "bagimliliklar": [],
     "izinler": ["http", "net_outbound"],

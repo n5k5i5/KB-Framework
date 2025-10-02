@@ -5,6 +5,7 @@ MANIFEST = {
     "yazar": "Topluluk",
     "aciklama": "e-Devlet entegrasyonu.",
     "kategori": "api",
+    "regional": "tr",
     "api_gereksinimleri": ["egov_api"],
     "bagimliliklar": [],
     "izinler": ["http", "net_outbound"],

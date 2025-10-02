@@ -2,14 +2,15 @@
 """
 Modül yükleme sistemi (çekirdek).
 """
-from typing import Dict, Any, Iterable
+from typing import Dict, Any, Iterable, Optional
 import os
 import importlib.util
 
 
 class Yukleyici:
-    def __init__(self):
+    def __init__(self, allowed_regions: Optional[Iterable[str]] = None):
         self.moduller: Dict[str, Any] = {}
+        self.allowed_regions = set(allowed_regions or [])
 
     def tara(self, dizinler: Iterable[str]):
         """Verilen dizinleri özyinelemeli olarak tarar ve modülleri yükler."""
@@ -31,7 +32,11 @@ class Yukleyici:
             assert spec and spec.loader
             spec.loader.exec_module(modul)
             if hasattr(modul, "MANIFEST"):
-                adi = modul.MANIFEST.get("modul_adi") or os.path.basename(modul_dosyasi).replace(".py", "")
-                self.moduller[adi] = modul.MANIFEST
+                manifest = dict(modul.MANIFEST)
+                regional = manifest.get("regional")
+                if regional and regional not in self.allowed_regions:
+                    return  # Bölgesel kısıt nedeniyle yükleme
+                adi = manifest.get("modul_adi") or os.path.basename(modul_dosyasi).replace(".py", "")
+                self.moduller[adi] = manifest
         except Exception as e:
             print(f"Yükleme hatası ({modul_dosyasi}): {e}")

@@ -5,6 +5,7 @@ MANIFEST = {
     "yazar": "Topluluk",
     "aciklama": "Türkiye kamu kayıtları ve açık veri.",
     "kategori": "turkiye",
+    "regional": "tr",
     "api_gereksinimleri": ["egov_api"],
     "bagimliliklar": [],
     "izinler": ["http"],
