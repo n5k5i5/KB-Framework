@@ -1,0 +1,9 @@
+[project]
+name = "kb-osint"
+version = "0.1.0"
+description = "Genişletilebilir OSINT platformu (iskelet)"
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

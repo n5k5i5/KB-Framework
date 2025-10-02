@@ -1,0 +1,3 @@
+"""
+SQL dışa aktarım (iskelet).
+"""

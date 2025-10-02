@@ -1,0 +1,13 @@
+modul_ayarlar:
+  domain:
+    varsayilan_time_out: 30
+    cache_et: true
+  ip:
+    varsayilan_time_out: 30
+    cache_et: true
+  email:
+    varsayilan_time_out: 30
+    cache_et: true
+  sosyal_medya:
+    varsayilan_time_out: 45
+    cache_et: false

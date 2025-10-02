@@ -1,0 +1,3 @@
+"""
+JSON rapor oluşturucu (iskelet).
+"""

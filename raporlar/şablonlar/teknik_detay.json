@@ -1,0 +1,10 @@
+{
+  "rapor_tipi": "teknik_detay",
+  "surum": "1.0.0",
+  "bolumler": [
+    "Giriş",
+    "Modül Çıktıları",
+    "Analiz",
+    "Sonuç"
+  ]
+}

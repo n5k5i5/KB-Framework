@@ -1,0 +1,3 @@
+"""
+PDF rapor oluşturucu (iskelet).
+"""

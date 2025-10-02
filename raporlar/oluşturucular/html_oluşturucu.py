@@ -1,0 +1,3 @@
+"""
+HTML rapor oluşturucu (iskelet).
+"""

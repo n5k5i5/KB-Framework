@@ -1,0 +1,8 @@
+api_anahtarlari:
+  shodan: ""
+  virustotal: ""
+  hunterio: ""
+  censys: ""
+  pastebin: ""
+  tor_feed_api: ""
+  geoip_api: ""

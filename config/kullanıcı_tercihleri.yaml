@@ -1,0 +1,4 @@
+tercihler:
+  dil: "tr"
+  varsayilan_rapor_format: "json"
+  otomatik_guncelleme: false

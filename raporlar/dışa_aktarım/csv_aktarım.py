@@ -1,0 +1,3 @@
+"""
+CSV dışa aktarım (iskelet).
+"""
