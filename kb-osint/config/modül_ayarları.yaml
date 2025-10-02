@@ -1,0 +1,9 @@
+domain:
+  kb_domain_whois:
+    timeout: 10
+ip:
+  kb_shodan_search:
+    api_key_env: "KB_SHODAN_API"
+email:
+  kb_email_verify:
+    mx_lookup: true

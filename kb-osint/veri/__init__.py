@@ -1,0 +1,3 @@
+"""
+Veri yönetimi paketi (iskelet).
+"""

@@ -1,0 +1,3 @@
+"""
+Arayüz paketi (iskelet).
+"""

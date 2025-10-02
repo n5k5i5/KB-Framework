@@ -1,0 +1,3 @@
+"""
+Çekirdek modüller (iskelet).
+"""

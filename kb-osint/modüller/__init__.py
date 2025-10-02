@@ -1,0 +1,3 @@
+"""
+Modül paketi (iskelet).
+"""

@@ -1,0 +1,1 @@
+# Kişi araştırma modülleri (iskelet)

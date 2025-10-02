@@ -1,0 +1,2 @@
+# KB-OSINT bağımlılıkları (iskelet)
+# İsteğe bağlı: dnspython, opencv-python, requests

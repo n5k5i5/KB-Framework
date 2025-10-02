@@ -1,0 +1,3 @@
+"""
+Eklenti sistemi (iskelet).
+"""

@@ -1,0 +1,3 @@
+"""
+Yardımcı araçlar (iskelet).
+"""

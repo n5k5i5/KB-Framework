@@ -1,0 +1,10 @@
+politikalar:
+  yuksek:
+    sadece_imzali: true
+    izinler: ["http", "dns", "fs_read", "fs_write"]
+  orta:
+    sadece_imzali: false
+    izinler: ["http", "dns"]
+  dusuk:
+    gelistirici_modu: true
+    izinler: ["*"]

@@ -1,0 +1,3 @@
+"""
+Topluluk modülleri (iskelet).
+"""
