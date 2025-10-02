@@ -8,7 +8,7 @@ MANIFEST = {
     "versiyon": "0.1.0",
     "yazar": "KB-OSINT",
     "aciklama": "Domain bilgisi toplama çekirdek modülü (iskele).",
-    "kategori": "cekirdek",
+    "kategori": "domain",
     "api_gereksinimleri": [],
     "bagimliliklar": [],
     "izinler": ["dns", "http"],

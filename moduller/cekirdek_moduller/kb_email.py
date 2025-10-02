@@ -8,7 +8,7 @@ MANIFEST = {
     "versiyon": "0.1.0",
     "yazar": "KB-OSINT",
     "aciklama": "Email bilgisi toplama çekirdek modülü (iskele).",
-    "kategori": "cekirdek",
+    "kategori": "email",
     "api_gereksinimleri": [],
     "bagimliliklar": [],
     "izinler": ["http"],
