@@ -1,9 +1,11 @@
-"""Domain History (iskelet)"""
+# -*- coding: utf-8 -*-
+"""Domain geçmişi ve kayıt değişiklikleri (çekirdek)."""
+
 MANIFEST = {
     "modul_adi": "kb_domain_history",
     "versiyon": "0.1.0",
-    "yazar": "KB-OSINT",
-    "aciklama": "Domain geçmişi ve kayıt değişiklikleri.",
+    "yazar": "KB-OSINT Team",
+    "aciklama": "Whois ve arşiv kaynaklarından geçmiş ve değişiklikleri toplar.",
     "kategori": "domain",
     "api_gereksinimleri": ["whois_api", "archive_api"],
     "bagimliliklar": [],

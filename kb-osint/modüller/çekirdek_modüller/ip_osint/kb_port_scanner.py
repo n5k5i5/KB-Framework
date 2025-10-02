@@ -1,9 +1,11 @@
-"""Port Scanner (iskelet)"""
+# -*- coding: utf-8 -*-
+"""Temel port taraması ve servis keşfi (çekirdek)."""
+
 MANIFEST = {
     "modul_adi": "kb_port_scanner",
     "versiyon": "0.1.0",
-    "yazar": "KB-OSINT",
-    "aciklama": "Temel port taraması.",
+    "yazar": "KB-OSINT Team",
+    "aciklama": "Hedef IP için TCP/UDP port taraması ve banner toplama.",
     "kategori": "ip",
     "api_gereksinimleri": [],
     "bagimliliklar": [],

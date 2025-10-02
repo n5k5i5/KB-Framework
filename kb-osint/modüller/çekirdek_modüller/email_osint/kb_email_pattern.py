@@ -1,9 +1,11 @@
-"""Email Pattern (iskelet)"""
+# -*- coding: utf-8 -*-
+"""Email pattern ve doğrulama kuralları (çekirdek)."""
+
 MANIFEST = {
     "modul_adi": "kb_email_pattern",
     "versiyon": "0.1.0",
-    "yazar": "KB-OSINT",
-    "aciklama": "Email pattern tespiti.",
+    "yazar": "KB-OSINT Team",
+    "aciklama": "Organizasyon email pattern (ad.soyad@) tespiti ve kontrollü doğrulama.",
     "kategori": "email",
     "api_gereksinimleri": [],
     "bagimliliklar": [],

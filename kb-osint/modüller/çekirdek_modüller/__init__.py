@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
-Çekirdek modüller (iskelet).
+Resmi çekirdek modüller paketi.
 """

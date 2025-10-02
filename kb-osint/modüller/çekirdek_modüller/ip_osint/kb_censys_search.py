@@ -1,9 +1,11 @@
-"""Censys Search (iskelet)"""
+# -*- coding: utf-8 -*-
+"""Censys araması ile varlık keşfi (çekirdek)."""
+
 MANIFEST = {
     "modul_adi": "kb_censys_search",
     "versiyon": "0.1.0",
-    "yazar": "KB-OSINT",
-    "aciklama": "Censys API ile arama.",
+    "yazar": "KB-OSINT Team",
+    "aciklama": "Censys API ile IP/host sertifika ve varlık araması yapar.",
     "kategori": "ip",
     "api_gereksinimleri": ["censys"],
     "bagimliliklar": [],

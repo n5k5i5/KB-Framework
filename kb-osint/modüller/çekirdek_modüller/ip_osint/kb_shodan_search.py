@@ -1,9 +1,11 @@
-"""Shodan Search (iskelet)"""
+# -*- coding: utf-8 -*-
+"""Shodan araması ile IP/servis OSINT (çekirdek)."""
+
 MANIFEST = {
     "modul_adi": "kb_shodan_search",
     "versiyon": "0.1.0",
-    "yazar": "KB-OSINT",
-    "aciklama": "Shodan API ile arama.",
+    "yazar": "KB-OSINT Team",
+    "aciklama": "Shodan API ile IP ve servis bilgileri toplar.",
     "kategori": "ip",
     "api_gereksinimleri": ["shodan"],
     "bagimliliklar": [],

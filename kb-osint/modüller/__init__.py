@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
-Modül paketi (iskelet).
+KB-OSINT modül üst paketi (iskelet).
 """
