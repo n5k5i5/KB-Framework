@@ -57,3 +57,25 @@ Use `help` to list available commands.
   module_list active
   module_list inactive
   ```
+
+## Regional (country) commands
+
+- Show enabled countries:
+  ```
+  country_list
+  ```
+
+- Enable a country:
+  ```
+  country_enable <code>
+  ```
+
+- Disable a country:
+  ```
+  country_disable <code>
+  ```
+
+- Set national mode to a single country:
+  ```
+  country_set <code>
+  ```
