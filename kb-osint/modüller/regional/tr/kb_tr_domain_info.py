@@ -1,4 +1,4 @@
-"""TR Domain Info (iskelet)"""
+"""TR Domain Info (skeletal)"""
 MANIFEST = {
     "modul_adi": "kb_tr_domain_info",
     "versiyon": "0.1.0",

@@ -1,4 +1,4 @@
-"""TR Public Records (iskelet)"""
+"""TR Public Records (skeletal)"""
 MANIFEST = {
     "modul_adi": "kb_tr_public_records",
     "versiyon": "0.1.0",

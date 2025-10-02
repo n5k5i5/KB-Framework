@@ -1,12 +1,12 @@
-"""TR Company Search (iskelet)"""
+"""TR Social Media (skeletal)"""
 MANIFEST = {
-    "modul_adi": "kb_tr_company_search",
+    "modul_adi": "kb_tr_social_media",
     "versiyon": "0.1.0",
     "yazar": "Topluluk",
-    "aciklama": "Türkiye şirket arama.",
+    "aciklama": "Türkiye odaklı sosyal medya OSINT.",
     "kategori": "turkiye",
     "regional": "tr",
-    "api_gereksinimleri": ["tr_business_api"],
+    "api_gereksinimleri": ["platform_api"],
     "bagimliliklar": [],
     "izinler": ["http"],
     "guvenlik_seviyesi": "orta",

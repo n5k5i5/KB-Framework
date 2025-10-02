@@ -36,7 +36,7 @@ def _modul_dizinleri(proje_kok: str, enabled_countries=None):
     ]
 
     if "tr" in enabled_countries:
-        dizinler.append(os.path.join(topluluk, "türkiye_özel"))
+        dizinler.append(os.path.join(base, "regional", "tr"))
 
     return dizinler
 

@@ -21,8 +21,9 @@ def _modul_dizinleri(proje_kok: str):
         # Topluluk
         os.path.join(topluluk, "analiz_raporlama"),
         os.path.join(topluluk, "görsel_osint"),
-        os.path.join(topluluk, "türkiye_özel"),
         os.path.join(topluluk, "entegrasyonlar"),
+        # Bölgesel (opsiyonel, filtreye tabi)
+        os.path.join(base, "regional", "tr"),
         # Kullanıcı
         os.path.join(kullanici, "kişisel_otomasyon"),
         os.path.join(kullanici, "veri_işleme"),

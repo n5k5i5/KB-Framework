@@ -40,7 +40,7 @@ def _modul_dizinleri(proje_kok: str, enabled_countries=None):
 
     # Bölgesel (ülke) modüllerini opsiyonel olarak ekle
     if "tr" in enabled_countries:
-        dizinler.append(os.path.join(topluluk, "türkiye_özel"))
+        dizinler.append(os.path.join(base, "regional", "tr"))
 
     return dizinler
 

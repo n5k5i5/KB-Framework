@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Modül listeleyici ve filtreleyici.
+Module lister and filter.
 """
 from typing import Dict, Any, Optional, List, Tuple
 from arayüz.renklendirici import Renklendirici
@@ -13,11 +13,11 @@ def _meta(modul: Any) -> Dict[str, Any]:
 class ModulLister:
     def listele(self, moduller: Dict[str, Any], detay_seviyesi: str = "normal") -> None:
         if not moduller:
-            print(Renklendirici.hata("Hiç modül yüklenmemiş!"))
+            print(Renklendirici.error("No modules loaded! / Hiç modül yüklenmemiş!"))
             return
 
-        print(Renklendirici.baslik("KB-OSINT MODÜL LİSTESİ"))
-        print(Renklendirici.bilgi(f"Toplam {len(moduller)} modül yüklü"))
+        print(Renklendirici.title("KB-OSINT MODULE LIST / MODÜL LİSTESİ"))
+        print(Renklendirici.info(f"Total {len(moduller)} modules loaded / Toplam {len(moduller)} modül yüklü"))
         print("-" * 80)
 
         for i, ad in enumerate(sorted(moduller.keys()), 1):
@@ -63,21 +63,21 @@ class ModulLister:
     def _tek_modul_bilgisi(self, sira: int, ad: str, modul: Any, detay_seviyesi: str) -> None:
         meta = _meta(modul)
         print(f"{sira:2d}. {Renklendirici.vurgu(ad)}")
-        print(f"     {Renklendirici.bilgi('Açıklama:')} {meta.get('aciklama', 'Açıklama yok')}")
-        print(f"     {Renklendirici.bilgi('Versiyon:')} {meta.get('versiyon', '1.0.0')}")
-        print(f"     {Renklendirici.bilgi('Kategori:')} {meta.get('kategori', 'genel')}")
-        print(f"     {Renklendirici.bilgi('Yazar:')} {meta.get('yazar', 'Bilinmiyor')}")
+        print(f"     {Renklendirici.info('Description / Açıklama:')} {meta.get('aciklama', 'No description / Açıklama yok')}")
+        print(f"     {Renklendirici.info('Version / Versiyon:')} {meta.get('versiyon', '1.0.0')}")
+        print(f"     {Renklendirici.info('Category / Kategori:')} {meta.get('kategori', 'general / genel')}")
+        print(f"     {Renklendirici.info('Author / Yazar:')} {meta.get('yazar', 'Unknown / Bilinmiyor')}")
 
         if detay_seviyesi == "detayli":
-            api_gerek = ", ".join(meta.get("api_gereksinimleri", [])) or "Yok"
-            bagimlilik = ", ".join(meta.get("bagimliliklar", [])) or "Yok"
-            guvenlik = meta.get("guvenlik_seviyesi", "orta")
+            api_gerek = ", ".join(meta.get("api_gereksinimleri", [])) or "None / Yok"
+            bagimlilik = ", ".join(meta.get("bagimliliklar", [])) or "None / Yok"
+            guvenlik = meta.get("guvenlik_seviyesi", "medium / orta")
             aktif_mi = meta.get("aktif", True)
-            durum_metni = "🟢 Aktif" if aktif_mi else "🔴 Pasif"
+            durum_metni = "🟢 Active / Aktif" if aktif_mi else "🔴 Inactive / Pasif"
 
-            print(f"     {Renklendirici.bilgi('API Gereksinimleri:')} {api_gerek}")
-            print(f"     {Renklendirici.bilgi('Bağımlılıklar:')} {bagimlilik}")
-            print(f"     {Renklendirici.bilgi('Güvenlik Seviyesi:')} {guvenlik}")
-            print(f"     {Renklendirici.bilgi('Durum:')} {durum_metni}")
+            print(f"     {Renklendirici.info('API Requirements / API Gereksinimleri:')} {api_gerek}")
+            print(f"     {Renklendirici.info('Dependencies / Bağımlılıklar:')} {bagimlilik}")
+            print(f"     {Renklendirici.info('Security Level / Güvenlik Seviyesi:')} {guvenlik}")
+            print(f"     {Renklendirici.info('Status / Durum:')} {durum_metni}")
 
         print()

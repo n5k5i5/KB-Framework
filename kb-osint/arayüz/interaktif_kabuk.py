@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Interaktif kabuk.
+Interactive shell.
 """
 from arayüz.komut_işleyici import KomutIsleyici
 from arayüz.renklendirici import Renklendirici
@@ -16,7 +16,7 @@ class InteraktifKabuk:
         self.komutlar[ad] = (islev, aciklama)
 
     def yardim(self):
-        print(Renklendirici.baslik("Kullanılabilir Komutlar"))
+        print(Renklendirici.title("Available Commands / Kullanılabilir Komutlar"))
         for ad, (_, aciklama) in sorted(self.komutlar.items()):
             print(f"{ad:20} {aciklama}")
 
@@ -26,7 +26,7 @@ class InteraktifKabuk:
             try:
                 satir = input(self.prompt).strip()
             except (EOFError, KeyboardInterrupt):
-                print("\n" + Renklendirici.bilgi("Çıkılıyor..."))
+                print("\n" + Renklendirici.info("Exiting... / Çıkılıyor..."))
                 break
 
             if not satir:
@@ -36,11 +36,11 @@ class InteraktifKabuk:
             komut = parcalar[0]
             args = parcalar[1:]
 
-            if komut == "cikis":
-                print(Renklendirici.bilgi("Çıkılıyor..."))
+            if komut in {"cikis", "exit"}:
+                print(Renklendirici.info("Exiting... / Çıkılıyor..."))
                 break
 
-            if komut == "yardim":
+            if komut in {"yardim", "help"}:
                 self.yardim()
                 continue
 
@@ -49,6 +49,6 @@ class InteraktifKabuk:
                 try:
                     islev(args)
                 except Exception as e:
-                    print(Renklendirici.hata(f"Komut çalıştırma hatası: {e}"))
+                    print(Renklendirici.error(f"Command execution error: {e}"))
             else:
-                print(Renklendirici.hata(f"Bilinmeyen komut: {komut}. 'yardim' komutunu kullanın."))
+                print(Renklendirici.error(f"Unknown command: {komut}. Use 'help' / 'yardim'."))

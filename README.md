@@ -1,26 +1,36 @@
 # KB-OSINT
 
-Genişletilebilir OSINT platformu için tam dizin yapısı ve iskelet kodlar.
+Extensible OSINT platform with full directory layout and skeletal code.
 
-## Başlatma
+## Start
 ```
-python main.py
+python kb-osint/kb.py
 ```
-Interaktif kabuk üzerinden modül listeleme ve diğer komutlara erişebilirsiniz.
+Use the interactive shell to list modules and run commands.
 
-## Dizin Özeti
-- çekirdek/: sistem çekirdeği (yükleyici, güvenlik, config)
-- modüller/: resmi, topluluk ve kullanıcı modülleri (kategori bazlı)
-- arayüz/: CLI ve interaktif kabuk
-- raporlar/: şablonlar, oluşturucular ve dışa_aktarım
-- veri/: veritabanı, önbellek ve geçici veri
-- eklentiler/: eklenti sistemi
-- utils/: yardımcı araçlar
-- docs/: kullanıcı ve geliştirici dokümantasyonu
-- config/: YAML konfigürasyon dosyaları
-- tests/: birim, entegrasyon ve performans testleri
-- scripts/: kurulum ve otomasyon scriptleri
-- external/: harici bağımlılık/asset klasörleri
-- backups/: yedek klasörleri
+## International (regional) modules
+- Country-specific modules live under: `kb-osint/modüller/regional/<country_code>/`
+- Enable specific countries via `kb-osint/config/ana_config.yaml`:
+  ```yaml
+  regional:
+    enabled_countries: ["tr"]  # example: Turkey
+  ```
 
-Detaylar için docs klasörüne bakınız.
+## Directory Summary
+- çekirdek/: core system (loader, security, config)
+- modüller/: official, community and user modules (category-based)
+- arayüz/: CLI and interactive shell
+- raporlar/: templates, generators and exporters
+- veri/: database, cache and temporary data
+- eklentiler/: plugin system
+- utils/: helper tools
+- docs/: user and developer documentation
+  - English: `kb-osint/docs/user_guide/`
+  - Turkish: `kb-osint/docs/kullanıcı_kılavuzu/`
+- config/: YAML configuration files
+- tests/: unit, integration and performance tests
+- scripts/: installer and automation scripts
+- external/: external dependencies/assets
+- backups/: backup directories
+
+See the docs folder for details.

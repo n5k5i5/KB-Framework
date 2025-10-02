@@ -1,12 +1,12 @@
-"""TR Business Registry (iskelet)"""
+"""MERNİS Integration (skeletal)"""
 MANIFEST = {
-    "modul_adi": "kb_tr_business_registry",
+    "modul_adi": "kb_mernis_integration",
     "versiyon": "0.1.0",
     "yazar": "Topluluk",
-    "aciklama": "Türkiye ticari sicil entegrasyonu.",
+    "aciklama": "MERNİS entegrasyonu.",
     "kategori": "api",
     "regional": "tr",
-    "api_gereksinimleri": ["tr_business_api"],
+    "api_gereksinimleri": ["mernis_api"],
     "bagimliliklar": [],
     "izinler": ["http", "net_outbound"],
     "guvenlik_seviyesi": "orta",
