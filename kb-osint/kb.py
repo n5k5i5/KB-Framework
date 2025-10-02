@@ -3,8 +3,8 @@ KB-OSINT ana uygulama (iskelet).
 """
 import os
 from arayüz.interaktif_kabuk import InteraktifKabuk
-from arayüz.modül_lister import ModulLister
 from çekirdek.yükleyici import Yukleyici
+from arayüz.modul_komutlari import ModulKomutlari
 
 
 def _modul_dizinleri(proje_kok: str):
@@ -44,12 +44,14 @@ def main():
     yukleyici.tara(_modul_dizinleri(proje_kok))
 
     kabuk = InteraktifKabuk()
+    mk = ModulKomutlari(yukleyici)
 
-    def _komut_modul_liste(_args=None):
-        lister = ModulLister()
-        lister.listele(yukleyici.moduller)
+    # Komutlar
+    kabuk.komut_ekle("modul_liste", mk.modul_liste, "Modülleri listeler - modul_liste [detayli|kategori|ara|aktif|pasif]")
+    kabuk.komut_ekle("modul_kategoriler", lambda *_: mk._kategorileri_listele(), "Tüm modül kategorilerini listeler")
+    kabuk.komut_ekle("modul_ara", lambda args: mk._ara(args[0] if args else ""), "Modüllerde arama yapar - modul_ara <metin>")
 
-    kabuk.komut_ekle("modul_liste", _komut_modul_liste, "Yüklü modülleri listeler")
+    # Yerleşik komutlar
     kabuk.komut_ekle("yardim", lambda *_: kabuk.yardim(), "Yardım metnini gösterir")
     kabuk.komut_ekle("cikis", lambda *_: None, "Kabuğu kapatır")
 
