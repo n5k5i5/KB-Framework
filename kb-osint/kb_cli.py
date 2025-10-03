@@ -1,89 +1,89 @@
 """
-KB-OSINT CLI giriş noktası.
+KB-OSINT CLI entry point.
 """
 import os
-from arayüz.interaktif_kabuk import InteraktifKabuk
-from çekirdek.yükleyici import Yukleyici
-from çekirdek.yapılandırma import Yapilandirma
-from arayüz.modul_komutlari import ModulKomutlari
-from arayüz.country_komutlari import UlkeKomutlari
+from interface.interactive_shell import InteractiveShell
+from core.loader import Loader
+from core.config_manager import ConfigManager
+from interface.module_commands import ModuleCommands
+from interface.country_commands import CountryCommands
 
 
-def _modul_dizinleri(proje_kok: str, enabled_countries=None):
+def _module_directories(project_root: str, enabled_countries=None):
     enabled_countries = set(enabled_countries or [])
-    base = os.path.join(proje_kok, "modüller")
-    cekirdek = os.path.join(base, "çekirdek_modüller")
-    topluluk = os.path.join(base, "topluluk_modülleri")
-    kullanici = os.path.join(base, "kullanıcı_modülleri")
+    base = os.path.join(project_root, "modules")
+    core_dir = os.path.join(base, "core_modules")
+    community_dir = os.path.join(base, "community_modules")
+    user_dir = os.path.join(base, "user_modules")
 
-    dizinler = [
-        os.path.join(cekirdek, "domain_osint"),
-        os.path.join(cekirdek, "ip_osint"),
-        os.path.join(cekirdek, "email_osint"),
-        os.path.join(cekirdek, "sosyal_medya"),
-        os.path.join(cekirdek, "kişi_araştırma"),
-        os.path.join(cekirdek, "kurumsal_osint"),
-        os.path.join(cekirdek, "gelişmiş_arama"),
-        os.path.join(topluluk, "analiz_raporlama"),
-        os.path.join(topluluk, "görsel_osint"),
-        os.path.join(topluluk, "entegrasyonlar"),
-        os.path.join(kullanici, "kişisel_otomasyon"),
-        os.path.join(kullanici, "veri_işleme"),
-        os.path.join(kullanici, "entegrasyonlar"),
-        os.path.join(kullanici, "özel_hedefler"),
-        os.path.join(kullanici, "kişisel_raporlama"),
-        os.path.join(kullanici, "iş_akışı"),
-        os.path.join(kullanici, "güvenlik_gizlilik"),
+    dirs = [
+        os.path.join(core_dir, "domain_osint"),
+        os.path.join(core_dir, "ip_osint"),
+        os.path.join(core_dir, "email_osint"),
+        os.path.join(core_dir, "social_media"),
+        os.path.join(core_dir, "person_research"),
+        os.path.join(core_dir, "corporate_osint"),
+        os.path.join(core_dir, "advanced_search"),
+        os.path.join(community_dir, "analysis_reporting"),
+        os.path.join(community_dir, "visual_osint"),
+        os.path.join(community_dir, "integrations"),
+        os.path.join(user_dir, "personal_automation"),
+        os.path.join(user_dir, "data_processing"),
+        os.path.join(user_dir, "integrations"),
+        os.path.join(user_dir, "special_targets"),
+        os.path.join(user_dir, "personal_reporting"),
+        os.path.join(user_dir, "workflows"),
+        os.path.join(user_dir, "security_privacy"),
     ]
 
     for code in enabled_countries:
-        dizinler.append(os.path.join(base, "regional", code))
+        dirs.append(os.path.join(base, "regional", code))
 
-    return dizinler
+    return dirs
 
 
 def run():
-    proje_kok = os.path.dirname(__file__)
-    cfg = Yapilandirma()
-    cfg.yukle()
-    regional = cfg.al("regional", {}) or {}
+    project_root = os.path.dirname(__file__)
+    cfg = ConfigManager()
+    cfg.load()
+    regional = cfg.get("regional", {}) or {}
     mode = regional.get("mode", "international")
     country_code = regional.get("country_code") or ""
     enabled_countries = regional.get("enabled_countries", [])
     if mode == "national" and country_code:
         enabled_countries = [country_code]
 
-    y = Yukleyici(allowed_regions=enabled_countries)
-    y.tara(_modul_dizinleri(proje_kok, enabled_countries))
+    loader = Loader(allowed_regions=enabled_countries)
+    loader.scan(_module_directories(project_root, enabled_countries))
 
-    shell = InteraktifKabuk()
-    mk = ModulKomutlari(y)
-    uk = UlkeKomutlari(y, cfg, proje_kok)
+    shell = InteractiveShell()
+    mk = ModuleCommands(loader)
+    uk = CountryCommands(loader, cfg, project_root)
 
-    shell.komut_ekle("modul_liste", mk.modul_liste, "Modülleri listeler - modul_liste [detayli|kategori|ara|aktif|pasif]")
-    shell.komut_ekle("module_list", mk.modul_liste, "List modules - module_list [detailed|category|search|active|inactive]")
-    shell.komut_ekle("modul_kategoriler", lambda *_: mk._kategorileri_listele(), "Tüm modül kategorilerini listeler")
-    shell.komut_ekle("module_categories", lambda *_: mk._kategorileri_listele(), "List all module categories")
-    shell.komut_ekle("modul_ara", lambda args: mk._ara(args[0] if args else ""), "Modüllerde arama yapar - modul_ara <metin>")
-    shell.komut_ekle("module_search", lambda args: mk._ara(args[0] if args else ""), "Search modules - module_search <text>")
+    shell.register_command("modul_liste", mk.module_list, "Modülleri listeler - modul_liste [detayli|kategori|ara|aktif|pasif]")
+    shell.register_command("module_list", mk.module_list, "List modules - module_list [detailed|category|search|active|inactive]")
+    shell.register_command("modul_kategoriler", lambda *_: mk._list_categories(), "Tüm modül kategorilerini listeler")
+    shell.register_command("module_categories", lambda *_: mk._list_categories(), "List all module categories")
+    shell.register_command("modul_ara", lambda args: mk._search(args[0] if args else ""), "Modüllerde arama yapar - modul_ara <metin>")
+    shell.register_command("module_search", lambda args: mk._search(args[0] if args else ""), "Search modules - module_search <text>")
 
-    # Ülke (regional) komutları
-    shell.komut_ekle("ulke_liste", uk.ulke_liste, "Etkin ülkeleri listeler / List enabled countries")
-    shell.komut_ekle("country_list", uk.country_list, "List enabled countries")
-    shell.komut_ekle("ulke_etkinlestir", uk.ulke_etkinlestir, "Ülke etkinleştir / Enable country: ulke_etkinlestir <kod>")
-    shell.komut_ekle("country_enable", uk.country_enable, "Enable country: country_enable <code>")
-    shell.komut_ekle("ulke_devre_disi", uk.ulke_devre_disi, "Ülke devre dışı / Disable country: ulke_devre_disi <kod>")
-    shell.komut_ekle("country_disable", uk.country_disable, "Disable country: country_disable <code>")
-    shell.komut_ekle("ulke_ayarla", uk.ulke_ayarla, "Tek ülke modu / National: ulke_ayarla <kod>")
-    shell.komut_ekle("country_set", uk.country_set, "National mode: country_set <code>")
-    shell.komut_ekle("modulleri_yeniden_yukle", uk.modulleri_yeniden_yukle, "Modülleri yeniden yükle / Reload modules")
-    shell.komut_ekle("reload_modules", uk.reload_modules, "Reload modules")
+    # Country (regional) commands
+    shell.register_command("ulke_liste", uk.country_list, "Etkin ülkeleri listeler / List enabled countries")
+    shell.register_command("country_list", uk.country_list, "List enabled countries")
+    shell.register_command("ulke_etkinlestir", uk.country_enable, "Ülke etkinleştir / Enable country: ulke_etkinlestir <kod>")
+    shell.register_command("country_enable", uk.country_enable, "Enable country: country_enable <code>")
+    shell.register_command("ulke_devre_disi", uk.country_disable, "Ülke devre dışı / Disable country: ulke_devre_disi <kod>")
+    shell.register_command("country_disable", uk.country_disable, "Disable country: country_disable <code>")
+    shell.register_command("ulke_ayarla", uk.country_set, "Tek ülke modu / National: ulke_ayarla <kod>")
+    shell.register_command("country_set", uk.country_set, "National mode: country_set <code>")
+    shell.register_command("modulleri_yeniden_yukle", uk.reload_modules, "Modülleri yeniden yükle / Reload modules")
+    shell.register_command("reload_modules", uk.reload_modules, "Reload modules")
 
-    shell.komut_ekle("yardim", lambda *_: shell.yardim(), "Yardım metnini gösterir")
-    shell.komut_ekle("help", lambda *_: shell.yardim(), "Show help")
-    shell.komut_ekle("cikis", lambda *_: None, "Kabuğu kapatır")
-    shell.komut_ekle("exit", lambda *_: None, "Exit shell")
-    shell.calistir()
+    shell.register_command("yardim", lambda *_: shell.help(), "Yardım metnini gösterir")
+    shell.register_command("help", lambda *_: shell.help(), "Show help")
+    shell.register_command("cikis", lambda *_: None, "Kabuğu kapatır")
+    shell.register_command("exit", lambda *_: None, "Exit shell")
+    shell.run()
 
 
 if __name__ == "__main__":
