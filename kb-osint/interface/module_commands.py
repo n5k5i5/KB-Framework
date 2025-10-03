@@ -4,12 +4,16 @@ Module commands and CLI integration.
 """
 from interface.module_lister import ModuleLister
 from interface.formatter import Formatter
+from reports.engine import ReportingEngine
+from integrations.bus import IntegrationsBus
 
 
 class ModuleCommands:
     def __init__(self, loader):
         self.loader = loader
         self.lister = ModuleLister()
+        self.reporting = ReportingEngine()
+        self.bus = IntegrationsBus({})
 
     # TR/EN aliases supported via registration
     def module_list(self, params=None):
@@ -36,6 +40,43 @@ class ModuleCommands:
             self._list_inactive()
         else:
             print(Formatter.error("Geçersiz alt komut / invalid subcommand. modul_liste|module_list [detayli|detailed|kategori|category|ara|search|aktif|active|pasif|inactive]"))
+
+    def module_run(self, params=None):
+        """
+        Run a module with params. Usage:
+          module_run <module_name> key=value key2=value2 ...
+          modul_calistir <modul_adi> anahtar=deger ...
+        """
+        if not params:
+            print(Formatter.error("Kullanım / Usage: module_run <module_name> key=value ..."))
+            return
+        name = params[0]
+        kvs = params[1:] if len(params) > 1 else []
+        args = {}
+        for kv in kvs:
+            if "=" in kv:
+                k, v = kv.split("=", 1)
+                args[k.strip()] = v.strip()
+
+        try:
+            instance = self.loader.instantiate(name)
+        except Exception as e:
+            print(Formatter.error(f"Modül çalıştırılamadı / cannot instantiate: {e}"))
+            return
+
+        result = {}
+        try:
+            result = instance.calistir(args)
+        except Exception as e:
+            print(Formatter.error(f"Çalıştırma hatası / run error: {e}"))
+            return
+
+        report = self.reporting.build(f"Module run: {name}", {"params": args}, result, getattr(instance, "metadata", {}))
+        json_path = self.reporting.save(report, fmt="json")
+        md_path = self.reporting.save(report, fmt="md")
+
+        print(Formatter.info(f"Rapor kaydedildi / Report saved: {json_path}, {md_path}"))
+        self.bus.send(["console"], f"Module run: {name}", {"report_json": json_path, "report_md": md_path, "result": result})
 
     def _list_categories(self):
         categories = self.lister.by_category(self.loader.modules)

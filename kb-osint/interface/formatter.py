@@ -1,17 +1,7 @@
 """
 Output formatter (skeletal).
 """
-class Renklendirici:
-    # Turkish aliases (backward compatibility)
-    @staticmethod
-    def baslik(m): return f"[TITLE] {m}"
-    @staticmethod
-    def bilgi(m): return f"[INFO] {m}"
-    @staticmethod
-    def hata(m): return f"[ERROR] {m}"
-    @staticmethod
-    def vurgu(m): return f"*{m}*"
-
+class Formatter:
     # English defaults
     @staticmethod
     def title(m): return f"[TITLE] {m}"
@@ -21,3 +11,14 @@ class Renklendirici:
     def error(m): return f"[ERROR] {m}"
     @staticmethod
     def emphasis(m): return f"*{m}*"
+
+# Turkish aliases (backward compatibility)
+class Renklendirici(Formatter):
+    @staticmethod
+    def baslik(m): return Formatter.title(m)
+    @staticmethod
+    def bilgi(m): return Formatter.info(m)
+    @staticmethod
+    def hata(m): return Formatter.error(m)
+    @staticmethod
+    def vurgu(m): return Formatter.emphasis(m)

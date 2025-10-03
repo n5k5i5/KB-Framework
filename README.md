@@ -62,6 +62,10 @@ Core module commands
 - List categories:
   - `module_categories`
   - `modul_kategoriler`
+- Run module:
+  - `module_run <module_name> key=value ...`
+  - `modul_calistir <modul_adi> anahtar=deger ...`
+  - Example: `module_run kb_domain_whois domain=example.com`
 
 Regional (country) management
 - Show enabled countries:

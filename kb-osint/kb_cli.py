@@ -67,6 +67,10 @@ def run():
     shell.register_command("modul_ara", lambda args: mk._search(args[0] if args else ""), "Modüllerde arama yapar - modul_ara <metin>")
     shell.register_command("module_search", lambda args: mk._search(args[0] if args else ""), "Search modules - module_search <text>")
 
+    # Run module
+    shell.register_command("modul_calistir", mk.module_run, "Modül çalıştır - modul_calistir <modul_adi> anahtar=deger ...")
+    shell.register_command("module_run", mk.module_run, "Run module - module_run <module_name> key=value ...")
+
     # Country (regional) commands
     shell.register_command("ulke_liste", uk.country_list, "Etkin ülkeleri listeler / List enabled countries")
     shell.register_command("country_list", uk.country_list, "List enabled countries")
