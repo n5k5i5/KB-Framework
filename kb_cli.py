@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 """
-KB-OSINT CLI giriş noktası (iskelet).
+KB-OSINT CLI entry now delegates to the unified kb-osint/kb_cli.py.
 """
-from kb_osint.app import KB_OSINT_Uygulama
+import runpy
 
 if __name__ == "__main__":
-    KB_OSINT_Uygulama().calistir()
+    runpy.run_path("kb-osint/kb_cli.py")

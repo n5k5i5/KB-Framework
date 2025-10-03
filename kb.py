@@ -1,11 +1,11 @@
+# -*- coding: utf-8 -*-
 """
-KB-OSINT ana uygulama (iskelet).
+KB-OSINT main now delegates to the unified kb-osint/kb.py.
 """
-from kb_osint.app import KB_OSINT_Uygulama
+import runpy
 
 def main():
-    app = KB_OSINT_Uygulama()
-    app.calistir()
+    runpy.run_path("kb-osint/kb.py")
 
 if __name__ == "__main__":
     main()

@@ -1,3 +1,4 @@
 # KB-OSINT bağımlılıkları (iskelet)
 # İsteğe bağlı: dnspython, opencv-python, requests
 requests>=2.31.0
+dnspython>=2.5.0
