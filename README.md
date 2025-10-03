@@ -125,6 +125,24 @@ docker run -it --rm \
   kb-osint python kb-osint/kb.py
 ```
 
+## Single-folder cleanup (optional)
+
+This repository contains some legacy top-level directories from earlier iterations (e.g., `arayüz/`, `çekirdek/`, `modüller/`, `kb_osint/`). 
+The unified codebase now lives under `kb-osint/`. 
+To clean up and keep only the single-folder layout:
+
+Dry-run (shows what would be removed):
+```
+python kb-osint/scripts/cleanup_single_folder.py
+```
+
+Apply deletions:
+```
+python kb-osint/scripts/cleanup_single_folder.py --apply
+```
+
+Note: The script will not touch anything under `kb-osint/`.
+
 ## Scenarios
 
 - Exploring KB-OSINT
