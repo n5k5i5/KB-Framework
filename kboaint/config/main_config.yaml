@@ -1,0 +1,14 @@
+system:
+  name: "KB-OSINT"
+  version: "1.0.0"
+  language: "en"
+  log_level: "info"
+
+reporting:
+  output_dir: "./reports"
+  default_format: "json"
+
+regional:
+  mode: international        # international | national
+  country_code: ""           # e.g., "tr"
+  enabled_countries: []      # e.g., ["tr", "us"]
