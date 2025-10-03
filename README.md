@@ -37,4 +37,11 @@ Use the interactive shell to list modules and run commands.
 - external/: external dependencies/assets
 - backups/: backup directories
 
+## Roadmap / Upcoming
+- SOCMINT (Social Media Intelligence) — coming in the next update
+  - Username enumeration and cross-platform checks
+  - Profile discovery, posts/media collection (respecting platform ToS)
+  - Connection graphing, influence metrics, topic analysis
+  - Alerts/monitoring for new activity
+
 See the docs folder for details.
