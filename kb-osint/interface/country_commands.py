@@ -3,65 +3,65 @@
 Country (regional) commands for enabling/disabling national modules.
 """
 import os
-from arayüz.renklendirici import Renklendirici
+from interface.formatter import Formatter
 
 
-def _modul_dizinleri(proje_kok: str, enabled_countries=None):
+def _module_directories(project_root: str, enabled_countries=None):
     enabled_countries = set(enabled_countries or [])
-    base = os.path.join(proje_kok, "modüller")
-    cekirdek = os.path.join(base, "çekirdek_modüller")
-    topluluk = os.path.join(base, "topluluk_modülleri")
-    kullanici = os.path.join(base, "kullanıcı_modülleri")
+    base = os.path.join(project_root, "modules")
+    core_dir = os.path.join(base, "core_modules")
+    community_dir = os.path.join(base, "community_modules")
+    user_dir = os.path.join(base, "user_modules")
 
-    dizinler = [
-        os.path.join(cekirdek, "domain_osint"),
-        os.path.join(cekirdek, "ip_osint"),
-        os.path.join(cekirdek, "email_osint"),
-        os.path.join(cekirdek, "sosyal_medya"),
-        os.path.join(cekirdek, "kişi_araştırma"),
-        os.path.join(cekirdek, "kurumsal_osint"),
-        os.path.join(cekirdek, "gelişmiş_arama"),
-        os.path.join(topluluk, "analiz_raporlama"),
-        os.path.join(topluluk, "görsel_osint"),
-        os.path.join(topluluk, "entegrasyonlar"),
-        os.path.join(kullanici, "kişisel_otomasyon"),
-        os.path.join(kullanici, "veri_işleme"),
-        os.path.join(kullanici, "entegrasyonlar"),
-        os.path.join(kullanici, "özel_hedefler"),
-        os.path.join(kullanici, "kişisel_raporlama"),
-        os.path.join(kullanici, "iş_akışı"),
-        os.path.join(kullanici, "güvenlik_gizlilik"),
+    dirs = [
+        os.path.join(core_dir, "domain_osint"),
+        os.path.join(core_dir, "ip_osint"),
+        os.path.join(core_dir, "email_osint"),
+        os.path.join(core_dir, "social_media"),
+        os.path.join(core_dir, "person_research"),
+        os.path.join(core_dir, "corporate_osint"),
+        os.path.join(core_dir, "advanced_search"),
+        os.path.join(community_dir, "analysis_reporting"),
+        os.path.join(community_dir, "visual_osint"),
+        os.path.join(community_dir, "integrations"),
+        os.path.join(user_dir, "personal_automation"),
+        os.path.join(user_dir, "data_processing"),
+        os.path.join(user_dir, "integrations"),
+        os.path.join(user_dir, "special_targets"),
+        os.path.join(user_dir, "personal_reporting"),
+        os.path.join(user_dir, "workflows"),
+        os.path.join(user_dir, "security_privacy"),
     ]
 
     # add all enabled regional dirs
     for code in enabled_countries:
-        dizinler.append(os.path.join(base, "regional", code))
+        dirs.append(os.path.join(base, "regional", code))
 
-    return dizinler
+    return dirs
 
 
-class UlkeKomutlari:
-    def __init__(self, yukleyici, cfg, proje_kok: str):
-        self.y = yukleyici
+class CountryCommands:
+    def __init__(self, loader, cfg, project_root: str):
+        self.loader = loader
         self.cfg = cfg
-        self.proje_kok = proje_kok
+        self.project_root = project_root
 
     def _get_enabled(self):
-        regional = self.cfg.al("regional", {}) or {}
+        regional = self.cfg.get("regional", {}) or {}
         return list(regional.get("enabled_countries", []))
 
     def _save_enabled(self, codes):
-        data = self.cfg.veri or {}
+        data = self.cfg.data or {}
         reg = data.setdefault("regional", {})
         reg["enabled_countries"] = list(sorted(set(codes)))
-        self.cfg.veri = data
-        self.cfg.kaydet()
+        self.cfg.data = data
+        self.cfg.save()
 
     def _rescan(self, codes):
-        self.y.moduller.clear()
-        self.y.allowed_regions = set(codes)
-        self.y.tara(_modul_dizinleri(self.proje_kok, codes))
-        print(Renklendirici.info(f"Modules reloaded for countries: {', '.join(codes) or '(none)'}"))
+        self.loader.modules.clear()
+        self.loader.allowed_regions = set(codes)
+        self.loader.scan(_module_directories(self.project_root, codes))
+        print(Formatter.info(f"Modules reloaded for countries: {', '.join(codes) or '(none)'}"))
 
     # TR/EN aliases
     def ulke_liste(self, _args=None):
@@ -70,9 +70,9 @@ class UlkeKomutlari:
     def country_list(self, _args=None):
         codes = self._get_enabled()
         if not codes:
-            print(Renklendirici.info("No countries enabled / Etkin ülke yok"))
+            print(Formatter.info("No countries enabled / Etkin ülke yok"))
             return
-        print(Renklendirici.title("Enabled Countries / Etkin Ülkeler"))
+        print(Formatter.title("Enabled Countries / Etkin Ülkeler"))
         for c in codes:
             print(f"- {c}")
 
@@ -81,12 +81,12 @@ class UlkeKomutlari:
 
     def country_enable(self, args):
         if not args:
-            print(Renklendirici.error("Usage: country_enable <code> / ulke_etkinlestir <kod>"))
+            print(Formatter.error("Usage: country_enable <code> / ulke_etkinlestir <kod>"))
             return
         code = args[0].lower()
         codes = self._get_enabled()
         if code in codes:
-            print(Renklendirici.info(f"Country '{code}' already enabled"))
+            print(Formatter.info(f"Country '{code}' already enabled"))
         else:
             codes.append(code)
             self._save_enabled(codes)
@@ -97,7 +97,7 @@ class UlkeKomutlari:
 
     def country_disable(self, args):
         if not args:
-            print(Renklendirici.error("Usage: country_disable <code> / ulke_devre_disi <kod>"))
+            print(Formatter.error("Usage: country_disable <code> / ulke_devre_disi <kod>"))
             return
         code = args[0].lower()
         codes = [c for c in self._get_enabled() if c != code]
@@ -109,7 +109,7 @@ class UlkeKomutlari:
 
     def country_set(self, args):
         if not args:
-            print(Renklendirici.error("Usage: country_set <code> / ulke_ayarla <kod>"))
+            print(Formatter.error("Usage: country_set <code> / ulke_ayarla <kod>"))
             return
         codes = [args[0].lower()]
         self._save_enabled(codes)

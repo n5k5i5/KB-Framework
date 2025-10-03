@@ -1,43 +1,22 @@
-sistem:
-  isim: "KB-OSINT"
-  versiyon: "1.0.0"
-  dil: "tr"
-  log_seviye: "info"
+system:
+  name: "KB-OSINT"
+  version: "1.0.0"
+  language: "en"        # en | tr | ru
+  log_level: "info"
 
-moduller:
-  otomatik_yukle: true
-  imza_dogrula: true
+modules:
+  autoload: true
+  verify_signatures: true
 
-raporlama:
-  varsayilan_format: "json"
-  cikti_klasoru: "./raporlar"
+reporting:
+  default_format: "json"
+  output_dir: "./reports"
 
-guvenlik:
-  modul_imzalama: true
-  veri_sifreleme: true
-
-regional:
-  mode: national             # international | national
-  country_code: "tr"         # etkin ülke kodu (örn: "tr")
-  enabled_countries: []      # international modda kullanılacak ülkeler
-  isim: "KB-OSINT"
-  versiyon: "1.0.0"
-  dil: "tr"
-  log_seviye: "info"
-
-moduller:
-  otomatik_yukle: true
-  imza_dogrula: true
-
-raporlama:
-  varsayilan_format: "json"
-  cikti_klasoru: "./raporlar"
-
-guvenlik:
-  modul_imzalama: true
-  veri_sifreleme: true
+security:
+  module_signing: true
+  data_encryption: true
 
 regional:
-  mode: national             # international | national
-  country_code: "tr"         # tek ülke modu: Türkiye
-  enabled_countries: ["tr"]  # uluslararası mod için örnek liste
+  mode: international        # international | national
+  country_code: ""           # e.g., "tr" when mode=national
+  enabled_countries: []      # e.g., ["tr", "us"] when mode=international
