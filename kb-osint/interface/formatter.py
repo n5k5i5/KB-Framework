@@ -11,6 +11,8 @@ class Formatter:
     def error(m): return f"[ERROR] {m}"
     @staticmethod
     def emphasis(m): return f"*{m}*"
+    @staticmethod
+    def highlight(m): return f"> {m} <"
 
 # Turkish aliases (backward compatibility)
 class Renklendirici(Formatter):
@@ -22,3 +24,5 @@ class Renklendirici(Formatter):
     def hata(m): return Formatter.error(m)
     @staticmethod
     def vurgu(m): return Formatter.emphasis(m)
+    @staticmethod
+    def vurgula(m): return Formatter.highlight(m)
